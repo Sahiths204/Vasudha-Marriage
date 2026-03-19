@@ -1,4 +1,4 @@
-const canvas = document.getElementById("fireworks");
+onst canvas = document.getElementById("fireworks");
 const ctx = canvas.getContext("2d");
 
 canvas.width = window.innerWidth;
@@ -6,6 +6,7 @@ canvas.height = window.innerHeight;
 
 let particles = [];
 
+/* 🎆 FIREWORKS */
 function createFirework(x, y) {
   for (let i = 0; i < 80; i++) {
     particles.push({
@@ -41,7 +42,7 @@ function animate() {
 }
 animate();
 
-/* SLIDESHOW + MUSIC */
+/* 🎬 SLIDESHOW + 🎵 MUSIC */
 let images = [
   "img1.jpeg",
   "img2.jpeg",
@@ -54,18 +55,26 @@ let index = 0;
 let interval;
 
 function startCelebration() {
-  document.getElementById("slideshow").classList.remove("hidden");
+  const slideshow = document.getElementById("slideshow");
+  const img = document.getElementById("slideImage");
+  const music = document.getElementById("bgMusic");
 
-  // 🎵 PLAY MUSIC
-  document.getElementById("bgMusic").play();
+  // SHOW SLIDESHOW
+  slideshow.classList.remove("hidden");
 
-  // 🎬 SLIDESHOW
+  // PLAY MUSIC
+  music.play();
+
+  // ✅ SHOW FIRST IMAGE IMMEDIATELY
+  img.src = images[index];
+
+  // SLIDESHOW LOOP
   interval = setInterval(()=>{
-    document.getElementById("slideImage").src = images[index];
     index = (index + 1) % images.length;
+    img.src = images[index];
   },2000);
 
-  // 🎆 FIREWORKS
+  // FIREWORKS LOOP
   setInterval(()=>{
     createFirework(
       Math.random()*canvas.width,
