@@ -1,3 +1,7 @@
+•⁠  ⁠{
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
@@ -6,60 +10,79 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  text-align: center;
   color: white;
 }
 
-/* MAIN CARD */
+/* CARD */
 .container {
-  background: rgba(255,255,255,0.15);
-  padding: 25px;
-  border-radius: 20px;
-  backdrop-filter: blur(10px);
   width: 90%;
   max-width: 350px;
-  z-index: 2;
+  padding: 20px;
+  text-align: center;
+  background: rgba(255,255,255,0.15);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
   box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  z-index: 2;
 }
 
 /* TEXT */
-h1 {
-  font-size: 1.8rem;
-}
-
-h2 {
-  font-size: 1.4rem;
-  margin: 10px 0;
-}
+h1 { font-size: 1.6rem; }
+h2 { font-size: 1.3rem; margin: 10px 0; }
 
 /* IMAGE */
 .couple-img {
   width: 100%;
   border-radius: 15px;
   margin: 15px 0;
-  box-shadow: 0 0 20px rgba(255,255,255,0.6);
 }
 
 /* MESSAGE */
 .message {
-  font-size: 1rem;
-  margin: 15px 0;
+  font-size: 0.95rem;
 }
 
 /* BUTTON */
 button {
   padding: 10px 20px;
-  border: none;
   border-radius: 25px;
   background: #ff4081;
+  border: none;
   color: white;
-  cursor: pointer;
   font-size: 14px;
-  transition: 0.3s;
 }
 
-button:hover {
-  transform: scale(1.1);
+/* SLIDESHOW */
+.slideshow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.slideshow img {
+  width: 95%;
+  max-height: 90%;
+  object-fit: contain;
+}
+
+.hidden {
+  display: none;
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: white;
+  font-size: 28px;
+  cursor: pointer;
 }
 
 /* FIREWORKS */
