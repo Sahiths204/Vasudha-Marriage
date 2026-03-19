@@ -2,18 +2,17 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wedding Surprise 💖</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="container">
-
   <h1>🎉 Happy Married Life 🎉</h1>
-
   <h2>Vasudha ❤️ Ramana</h2>
 
-  <img src="vasudha.jpeg" class="couple-img" alt="Couple">
+  <img src="vasudha.jpeg" class="couple-img">
 
   <p class="message">
     Finally locked in forever 😂💍<br>
@@ -21,8 +20,16 @@
     Wishing you unlimited love, fights & fun! 💖
   </p>
 
-  <button onclick="startCelebration()">🎁 Click for Surprise</button>
+  <button onclick="startCelebration()">🎁 Surprise</button>
+</div>
 
+<!-- MUSIC -->
+<audio id="bgMusic" src="music.mp3" loop></audio>
+
+<!-- SLIDESHOW -->
+<div id="slideshow" class="slideshow hidden">
+  <span class="close" onclick="closeSlideshow()">✖</span>
+  <img id="slideImage">
 </div>
 
 <canvas id="fireworks"></canvas>
