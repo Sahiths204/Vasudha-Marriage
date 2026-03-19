@@ -35,13 +35,16 @@
 <canvas id="fireworks"></canvas>
 
 <script>
-  const canvas = document.getElementById("fireworks");
+  <script>
+const canvas = document.getElementById("fireworks");
 const ctx = canvas.getContext("2d");
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 let particles = [];
+let fireworkInterval = null;
+let slideshowInterval = null;
 
 /* 🎆 FIREWORKS */
 function createFirework(x, y) {
@@ -52,7 +55,7 @@ function createFirework(x, y) {
       speedX: (Math.random() - 0.5) * 6,
       speedY: (Math.random() - 0.5) * 6,
       size: Math.random() * 3,
-      color: ⁠ hsl(${Math.random()*360},100%,50%) ⁠,
+      color: `hsl(${Math.random() * 360}, 100%, 50%)`, // ✅ FIXED
       life: 100
     });
   }
@@ -60,19 +63,19 @@ function createFirework(x, y) {
 
 function animate() {
   ctx.fillStyle = "rgba(0,0,0,0.2)";
-  ctx.fillRect(0,0,canvas.width,canvas.height);
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  particles.forEach((p,i)=>{
+  particles.forEach((p, i) => {
     p.x += p.speedX;
     p.y += p.speedY;
     p.life--;
 
     ctx.beginPath();
-    ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
     ctx.fillStyle = p.color;
     ctx.fill();
 
-    if(p.life<=0) particles.splice(i,1);
+    if (p.life <= 0) particles.splice(i, 1);
   });
 
   requestAnimationFrame(animate);
@@ -89,12 +92,14 @@ let images = [
 ];
 
 let index = 0;
-let interval;
 
 function startCelebration() {
   const slideshow = document.getElementById("slideshow");
   const img = document.getElementById("slideImage");
   const music = document.getElementById("bgMusic");
+
+  // prevent multiple clicks from stacking intervals
+  if (fireworkInterval || slideshowInterval) return;
 
   // SHOW SLIDESHOW
   slideshow.classList.remove("hidden");
@@ -102,30 +107,36 @@ function startCelebration() {
   // PLAY MUSIC
   music.play();
 
-  // ✅ SHOW FIRST IMAGE IMMEDIATELY
+  // FIRST IMAGE
   img.src = images[index];
 
   // SLIDESHOW LOOP
-  interval = setInterval(()=>{
+  slideshowInterval = setInterval(() => {
     index = (index + 1) % images.length;
     img.src = images[index];
-  },2000);
+  }, 2000);
 
   // FIREWORKS LOOP
-  setInterval(()=>{
+  fireworkInterval = setInterval(() => {
     createFirework(
-      Math.random()*canvas.width,
-      Math.random()*canvas.height/2
+      Math.random() * canvas.width,
+      Math.random() * canvas.height / 2
     );
-  },500);
+  }, 500);
 }
 
 function closeSlideshow() {
   document.getElementById("slideshow").classList.add("hidden");
-  clearInterval(interval);
+
+  clearInterval(slideshowInterval);
+  clearInterval(fireworkInterval);
+
+  slideshowInterval = null;
+  fireworkInterval = null;
+
   document.getElementById("bgMusic").pause();
 }
-
+</script>
 </script>
 </body>
 </html>
