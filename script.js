@@ -6,7 +6,7 @@ canvas.height = window.innerHeight;
 
 let particles = [];
 
-/* 🎆 FIREWORKS */
+/* 🎆 FIREWORK */
 function createFirework(x, y) {
   for (let i = 0; i < 80; i++) {
     particles.push({
@@ -42,7 +42,7 @@ function animate() {
 }
 animate();
 
-/* 🎬 50 IMAGES AUTO LOAD */
+/* 🎬 50 IMAGES */
 let images = [];
 for (let i = 1; i <= 50; i++) {
   images.push(⁠ img${i}.jpeg ⁠);
@@ -55,10 +55,18 @@ let interval;
 function startIntro() {
 
   setInterval(()=>{
+    // LEFT
     createFirework(
-      Math.random()*canvas.width,
-      Math.random()*canvas.height/2
+      Math.random() * (canvas.width * 0.3),
+      Math.random() * canvas.height * 0.5
     );
+
+    // RIGHT
+    createFirework(
+      canvas.width * 0.7 + Math.random() * (canvas.width * 0.3),
+      Math.random() * canvas.height * 0.5
+    );
+
   },400);
 
   setTimeout(()=>{
@@ -76,14 +84,14 @@ function startIntro() {
 
 window.onload = startIntro;
 
-/* 🎁 BUTTON CLICK */
+/* 🎁 CLICK */
 function startCelebration() {
   document.getElementById("slideshow").classList.remove("hidden");
 
   const img = document.getElementById("slideImage");
   const music = document.getElementById("bgMusic");
 
-  music2.play().catch(()=>{});
+  music.play().catch(()=>{});
 
   img.src = images[index];
 
