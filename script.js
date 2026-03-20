@@ -64,7 +64,7 @@ function startCelebration() {
   slideshow.classList.remove("hidden");
 
   // PLAY MUSIC
-  music.play();
+  music2.play();
 
   // ✅ SHOW FIRST IMAGE IMMEDIATELY
   img.src = images[index];
