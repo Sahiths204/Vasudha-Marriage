@@ -51,38 +51,49 @@ for (let i = 1; i <= 50; i++) {
 let index = 0;
 let interval;
 
-/* 🔥 INTRO */
 function startIntro() {
 
-  setInterval(()=>{
-    // LEFT
+  // 🎆 FIREWORKS LEFT + RIGHT
+  let fireInterval = setInterval(() => {
+
+    // LEFT SIDE
     createFirework(
       Math.random() * (canvas.width * 0.3),
-      Math.random() * canvas.height * 0.5
+      Math.random() * (canvas.height * 0.5)
     );
 
-    // RIGHT
+    // RIGHT SIDE
     createFirework(
       canvas.width * 0.7 + Math.random() * (canvas.width * 0.3),
-      Math.random() * canvas.height * 0.5
+      Math.random() * (canvas.height * 0.5)
     );
 
-  },400);
+  }, 400);
 
-  setTimeout(()=>{
-    document.getElementById("loader").style.display = "none";
+  // ⏳ AFTER 3 SECONDS
+  setTimeout(() => {
 
+    // STOP FIREWORK LOOP
+    clearInterval(fireInterval);
+
+    // HIDE LOADER
+    const loader = document.getElementById("loader");
+    if (loader) loader.style.display = "none";
+
+    // SHOW MAIN CONTENT
     const main = document.getElementById("mainContent");
-    main.classList.remove("hidden");
 
-    setTimeout(()=>{
-      main.classList.add("show");
-    },100);
+    if (main) {
+      main.style.display = "block";  // force visible
+      main.classList.remove("hidden");
 
-  },3000);
+      setTimeout(() => {
+        main.classList.add("show");
+      }, 100);
+    }
+
+  }, 3000);
 }
-
-window.onload = startIntro;
 
 /* 🎁 CLICK */
 function startCelebration() {
