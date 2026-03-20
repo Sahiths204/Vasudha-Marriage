@@ -4,45 +4,218 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Wedding Surprise 💖</title>
-<link rel="stylesheet" href="style.css">
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial;
+  background: linear-gradient(to right, #ff9a9e, #fad0c4);
+}
+
+/* LOADER */
+#loader {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, #000000, #1a001a);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 9999;
+}
+
+#fireworks {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.loading-text {
+  color: white;
+  font-size: 26px;
+  animation: fade 2s infinite alternate;
+  z-index: 2;
+}
+
+@keyframes fade {
+  from { opacity: 0.3; }
+  to { opacity: 1; }
+}
+
+/* MAIN */
+#mainContent {
+  display: none;
+  text-align: center;
+  padding: 20px;
+}
+
+.show {
+  display: block;
+}
+
+.couple-img {
+  width: 90%;
+  border-radius: 15px;
+}
+
+button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 25px;
+  background: #ff4081;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* SLIDESHOW */
+#slideshow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+#slideshow img {
+  width: 90%;
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: white;
+  font-size: 25px;
+  cursor: pointer;
+}
+</style>
+
 </head>
 
 <body>
 
-<!-- 🔥 INTRO LOADER -->
+<!-- LOADER -->
 <div id="loader">
   <canvas id="fireworks"></canvas>
   <h1 class="loading-text">💖 Wedding Surprise 💖</h1>
 </div>
 
-<!-- 💖 MAIN CONTENT -->
-<div id="mainContent" class="hidden">
-  <div class="container">
-    <h1>🎉 Happy Married Life 🎉</h1>
-    <h2>Vasudha ❤️ Ramana</h2>
+<!-- MAIN -->
+<div id="mainContent">
+  <h1>🎉 Happy Married Life 🎉</h1>
+  <h2>Vasudha ❤️ Ramana</h2>
 
-    <img src="vasudha.jpeg" class="couple-img">
+  <img src="vasudha.jpeg" class="couple-img">
 
-    <p class="message">
-      Finally locked in forever 😂💍 <br>
-      One for talking... one for listening 🤭 <br>
-      Wishing you unlimited love, fights & fun! 💖
-    </p>
+  <p>
+    Finally locked in forever 😂💍 <br>
+    One for talking... one for listening 🤭 <br>
+    Wishing you unlimited love, fights & fun! 💖
+  </p>
 
-    <button onclick="startCelebration()">🎁 Surprise</button>
-  </div>
+  <button onclick="startCelebration()">🎁 Surprise</button>
 </div>
 
-<!-- 🎵 MUSIC -->
+<!-- MUSIC -->
 <audio id="bgMusic" src="music2.mp3" loop></audio>
 
-<!-- 🎬 SLIDESHOW -->
-<div id="slideshow" class="slideshow hidden">
+<!-- SLIDESHOW -->
+<div id="slideshow">
   <span class="close" onclick="closeSlideshow()">✖</span>
   <img id="slideImage">
 </div>
 
-<script src="script.js"></script>
+<script>
+// FIREWORKS
+const canvas = document.getElementById("fireworks");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+
+function createFirework(x, y) {
+  for (let i = 0; i < 60; i++) {
+    particles.push({
+      x, y,
+      vx: (Math.random()-0.5)*5,
+      vy: (Math.random()-0.5)*5,
+      life: 80
+    });
+  }
+}
+
+function animate() {
+  ctx.fillStyle = "rgba(0,0,0,0.2)";
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+
+  particles.forEach((p,i)=>{
+    p.x += p.vx;
+    p.y += p.vy;
+    p.life--;
+
+    ctx.fillStyle = "hsl("+Math.random()*360+",100%,50%)";
+    ctx.fillRect(p.x,p.y,3,3);
+
+    if(p.life<=0) particles.splice(i,1);
+  });
+
+  requestAnimationFrame(animate);
+}
+animate();
+
+// INTRO
+setInterval(()=>{
+  createFirework(Math.random()*canvas.width*0.3, Math.random()*canvas.height*0.5);
+  createFirework(canvas.width*0.7 + Math.random()*canvas.width*0.3, Math.random()*canvas.height*0.5);
+},400);
+
+// SHOW MAIN AFTER 3s
+setTimeout(()=>{
+  document.getElementById("loader").style.display = "none";
+  document.getElementById("mainContent").classList.add("show");
+},3000);
+
+// SLIDESHOW (50 IMAGES)
+let images = [];
+for (let i=1;i<=50;i++){
+  images.push(⁠ img${i}.jpeg ⁠);
+}
+
+let index = 0;
+let interval;
+
+function startCelebration(){
+  document.getElementById("slideshow").style.display="flex";
+
+  const img = document.getElementById("slideImage");
+  const music = document.getElementById("bgMusic");
+
+  music.play().catch(()=>{});
+
+  img.src = images[index];
+
+  interval = setInterval(()=>{
+    index=(index+1)%images.length;
+    img.src=images[index];
+  },1000);
+}
+
+function closeSlideshow(){
+  document.getElementById("slideshow").style.display="none";
+  clearInterval(interval);
+  document.getElementById("bgMusic").pause();
+}
+</script>
 
 </body>
 </html>
