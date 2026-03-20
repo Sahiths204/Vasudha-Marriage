@@ -42,14 +42,15 @@ function animate() {
 }
 animate();
 
-/* 🎬 SLIDESHOW + 🎵 MUSIC */
-let images = [
-  "img1.jpeg",
-  "img2.jpeg",
-  "img3.jpeg",
-  "img4.jpeg",
-  "img5.jpeg"
-];
+* 🎬 SLIDESHOW IMAGES (1 → 50) */
+let images = [];
+
+for (let i = 1; i <= 50; i++) {
+  images.push(⁠'img${i}.jpeg'⁠);
+}
+
+/* 🔀 OPTIONAL: RANDOM ORDER */
+images.sort(() => Math.random() - 0.5);
 
 let index = 0;
 let interval;
