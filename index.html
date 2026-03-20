@@ -1,221 +1,333 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wedding Surprise 💖</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wedding Surprise 💖</title>
 
-<style>
-body {
-  margin: 0;
-  font-family: Arial;
-  background: linear-gradient(to right, #ff9a9e, #fad0c4);
-}
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
 
-/* LOADER */
-#loader {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle, #000000, #1a001a);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  z-index: 9999;
-}
+      html {
+        height: 100%;
+      }
 
-#fireworks {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-}
+      body {
+        margin: 0;
+        min-height: 100%;
+        font-family: Arial, sans-serif;
+        background: linear-gradient(to right, #ff9a9e, #fad0c4);
+      }
 
-.loading-text {
-  color: white;
-  font-size: 26px;
-  animation: fade 2s infinite alternate;
-  z-index: 2;
-}
+      /* LOADER */
+      #loader {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle, #000000, #1a001a);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        z-index: 9999;
+      }
 
-@keyframes fade {
-  from { opacity: 0.3; }
-  to { opacity: 1; }
-}
+      #fireworks {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+      }
 
-/* MAIN */
-#mainContent {
-  display: none;
-  text-align: center;
-  padding: 20px;
-}
+      .loading-text {
+        color: white;
+        font-size: 26px;
+        animation: fade 2s infinite alternate;
+        z-index: 2;
+      }
 
-.show {
-  display: block;
-}
+      @keyframes fade {
+        from {
+          opacity: 0.3;
+        }
+        to {
+          opacity: 1;
+        }
+      }
 
-.couple-img {
-  width: 90%;
-  border-radius: 15px;
-}
+      /* MAIN */
+      #mainContent {
+        display: none;
+        text-align: center;
+        padding: 16px;
+      }
 
-button {
-  padding: 12px 20px;
-  border: none;
-  border-radius: 25px;
-  background: #ff4081;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-}
+      /* Must tie .show to #mainContent — id beats .show alone, so content stayed hidden */
+      #mainContent.show {
+        display: block;
+      }
 
-/* SLIDESHOW */
-#slideshow {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: black;
-  display: none;
-  justify-content: center;
-  align-items: center;
-}
+      #mainContent h1 {
+        margin: 0 0 0.25em;
+        font-size: clamp(1.1rem, 2.8vw, 1.65rem);
+        line-height: 1.2;
+      }
 
-#slideshow img {
-  width: 90%;
-}
+      #mainContent h2 {
+        margin: 0 0 0.35em;
+        font-size: clamp(1rem, 2.2vw, 1.35rem);
+        font-weight: 600;
+        line-height: 1.2;
+      }
 
-.close {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  color: white;
-  font-size: 25px;
-  cursor: pointer;
-}
-</style>
+      #mainContent .tagline {
+        margin: 0.35em 0 0.75em;
+        font-size: clamp(0.78rem, 1.5vw, 0.95rem);
+        line-height: 1.45;
+      }
 
-</head>
+      .photo-wrap {
+        margin: 0 auto;
+        width: min(92vw, 520px);
+      }
 
-<body>
+      .couple-img {
+        display: block;
+        width: 100%;
+        height: auto;
+        max-height: none;
+        border-radius: 15px;
+      }
 
-<!-- LOADER -->
-<div id="loader">
-  <canvas id="fireworks"></canvas>
-  <h1 class="loading-text">💖 Wedding Surprise 💖</h1>
-</div>
+      button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 25px;
+        background: #ff4081;
+        color: white;
+        font-size: clamp(14px, 1.6vw, 16px);
+        cursor: pointer;
+        margin-top: 0.35em;
+      }
 
-<!-- MAIN -->
-<div id="mainContent">
-  <h1>🎉 Happy Married Life 🎉</h1>
-  <h2>Vasudha ❤️ Ramana</h2>
+      /* Desktop / tablet: single screen, no page scroll */
+      @media (min-width: 768px) {
+        html,
+        body {
+          height: 100%;
+          overflow: hidden;
+        }
 
-  <img src="vasudha.jpeg" class="couple-img">
+        #mainContent.show {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: clamp(4px, 0.8vh, 10px);
+          min-height: 100vh;
+          max-height: 100vh;
+          padding: clamp(8px, 1.5vh, 16px) clamp(12px, 2vw, 24px);
+          overflow: hidden;
+        }
 
-  <p>
-    Finally locked in forever 😂💍 <br>
-    One for talking... one for listening 🤭 <br>
-    Wishing you unlimited love, fights & fun! 💖
-  </p>
+        #mainContent h1,
+        #mainContent h2 {
+          flex-shrink: 0;
+        }
 
-  <button onclick="startCelebration()">🎁 Surprise</button>
-</div>
+        /* Smaller than full flex — leaves room so tagline sits below art, not on it */
+        .photo-wrap {
+          flex: 0 1 auto;
+          min-height: 0;
+          width: 700px;
+          height: 800px;
+          
+         
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 0.15em 0 0;
+        }
 
-<!-- MUSIC -->
-<audio id="bgMusic" src="music2.mp3" loop></audio>
+        .couple-img {
+          width: 800px;  
+          height: 500px;
+          object-fit: contain;
+        }
 
-<!-- SLIDESHOW -->
-<div id="slideshow">
-  <span class="close" onclick="closeSlideshow()">✖</span>
-  <img id="slideImage">
-</div>
+        #mainContent .tagline {
+          flex-shrink: 0;
+          margin-top: 0.5em;
+          margin-bottom: 0.35em;
+          max-width: min(88vw, 480px);
+        }
 
-<script>
-// FIREWORKS
-const canvas = document.getElementById("fireworks");
-const ctx = canvas.getContext("2d");
+        #mainContent button {
+          flex-shrink: 0;
+          margin-top: 0.15em;
+        }
+      }
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+      /* SLIDESHOW */
+      #slideshow {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: black;
+        display: none;
+        justify-content: center;
+        align-items: center;
+      }
 
-let particles = [];
+      #slideshow img {
+        width: auto;
+        max-width: 90vw;
+        max-height: 90vh;
+        height: auto;
+        object-fit: contain;
+      }
 
-function createFirework(x, y) {
-  for (let i = 0; i < 60; i++) {
-    particles.push({
-      x, y,
-      vx: (Math.random()-0.5)*5,
-      vy: (Math.random()-0.5)*5,
-      life: 80
-    });
-  }
-}
+      .close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        color: white;
+        font-size: 25px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
 
-function animate() {
-  ctx.fillStyle = "rgba(0,0,0,0.2)";
-  ctx.fillRect(0,0,canvas.width,canvas.height);
+  <body>
+    <!-- LOADER -->
+    <div id="loader">
+      <canvas id="fireworks"></canvas>
+      <h1 class="loading-text">💖 Wedding Surprise 💖</h1>
+    </div>
 
-  particles.forEach((p,i)=>{
-    p.x += p.vx;
-    p.y += p.vy;
-    p.life--;
+    <!-- MAIN -->
+    <div id="mainContent">
+      <h1>🎉 Happy Married Life 🎉</h1>
+      <h2>Vasudha ❤️ Ramana</h2>
 
-    ctx.fillStyle = "hsl("+Math.random()*360+",100%,50%)";
-    ctx.fillRect(p.x,p.y,3,3);
+      <div class="photo-wrap">
+        <img src="vasudha.jpeg" class="couple-img" alt="Vasudha and Ramana" />
+      </div>
 
-    if(p.life<=0) particles.splice(i,1);
-  });
+      <p class="tagline">
+        Finally locked in forever 😂💍 <br />
+        One for talking... one for listening 🤭 <br />
+        Wishing you unlimited love, fights & fun! 💖
+      </p>
 
-  requestAnimationFrame(animate);
-}
-animate();
+      <button onclick="startCelebration()">🎁 Surprise</button>
+    </div>
 
-// INTRO
-setInterval(()=>{
-  createFirework(Math.random()*canvas.width*0.3, Math.random()*canvas.height*0.5);
-  createFirework(canvas.width*0.7 + Math.random()*canvas.width*0.3, Math.random()*canvas.height*0.5);
-},400);
+    <!-- MUSIC -->
+    <audio id="bgMusic" src="music2.mp3" loop></audio>
 
-// SHOW MAIN AFTER 3s
-setTimeout(()=>{
-  document.getElementById("loader").style.display = "none";
-  document.getElementById("mainContent").classList.add("show");
-},3000);
+    <!-- SLIDESHOW -->
+    <div id="slideshow">
+      <span class="close" onclick="closeSlideshow()">✖</span>
+      <img id="slideImage" />
+    </div>
 
-// SLIDESHOW (50 IMAGES)
-let images = [];
-for (let i=1;i<=50;i++){
-  images.push(⁠ img${i}.jpeg ⁠);
-}
+    <script>
+      // FIREWORKS
+      const canvas = document.getElementById("fireworks");
+      const ctx = canvas.getContext("2d");
 
-let index = 0;
-let interval;
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
 
-function startCelebration(){
-  document.getElementById("slideshow").style.display="flex";
+      let particles = [];
 
-  const img = document.getElementById("slideImage");
-  const music = document.getElementById("bgMusic");
+      function createFirework(x, y) {
+        for (let i = 0; i < 60; i++) {
+          particles.push({
+            x,
+            y,
+            vx: (Math.random() - 0.5) * 5,
+            vy: (Math.random() - 0.5) * 5,
+            life: 80,
+          });
+        }
+      }
 
-  music.play().catch(()=>{});
+      function animate() {
+        ctx.fillStyle = "rgba(0,0,0,0.2)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  img.src = images[index];
+        particles.forEach((p, i) => {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.life--;
 
-  interval = setInterval(()=>{
-    index=(index+1)%images.length;
-    img.src=images[index];
-  },1000);
-}
+          ctx.fillStyle = "hsl(" + Math.random() * 360 + ",100%,50%)";
+          ctx.fillRect(p.x, p.y, 3, 3);
 
-function closeSlideshow(){
-  document.getElementById("slideshow").style.display="none";
-  clearInterval(interval);
-  document.getElementById("bgMusic").pause();
-}
-</script>
+          if (p.life <= 0) particles.splice(i, 1);
+        });
 
-</body>
+        requestAnimationFrame(animate);
+      }
+      animate();
+
+      // INTRO
+      setInterval(() => {
+        createFirework(
+          Math.random() * canvas.width * 0.3,
+          Math.random() * canvas.height * 0.5,
+        );
+        createFirework(
+          canvas.width * 0.7 + Math.random() * canvas.width * 0.3,
+          Math.random() * canvas.height * 0.5,
+        );
+      }, 400);
+
+      // SHOW MAIN AFTER 3s
+      setTimeout(() => {
+        document.getElementById("loader").style.display = "none";
+        document.getElementById("mainContent").classList.add("show");
+      }, 3000);
+
+      // SLIDESHOW (50 IMAGES)
+      let images = [];
+      for (let i = 1; i <= 50; i++) {
+        images.push("img" + i + ".jpeg");
+      }
+
+      let index = 0;
+      let interval;
+
+      function startCelebration() {
+        document.getElementById("slideshow").style.display = "flex";
+
+        const img = document.getElementById("slideImage");
+        const music = document.getElementById("bgMusic");
+
+        music.play().catch(() => {});
+
+        img.src = images[index];
+
+        interval = setInterval(() => {
+          index = (index + 1) % images.length;
+          img.src = images[index];
+        }, 1000);
+      }
+
+      function closeSlideshow() {
+        document.getElementById("slideshow").style.display = "none";
+        clearInterval(interval);
+        document.getElementById("bgMusic").pause();
+      }
+    </script>
+  </body>
 </html>

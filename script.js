@@ -15,7 +15,7 @@ function createFirework(x, y) {
       speedX: (Math.random() - 0.5) * 6,
       speedY: (Math.random() - 0.5) * 6,
       size: Math.random() * 3,
-      color: ⁠ hsl(${Math.random()*360},100%,50%) ⁠,
+      color: `hsl(${Math.random() * 360},100%,50%)`,
       life: 100
     });
   }
@@ -45,7 +45,7 @@ animate();
 /* 🎬 50 IMAGES */
 let images = [];
 for (let i = 1; i <= 50; i++) {
-  images.push(⁠ img${i}.jpeg ⁠);
+  images.push(`img${i}.jpeg`);
 }
 
 let index = 0;
