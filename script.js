@@ -42,40 +42,56 @@ function animate() {
 }
 animate();
 
-* 🎬 SLIDESHOW IMAGES (1 → 50) */
+/* 🎬 50 IMAGES AUTO LOAD */
 let images = [];
-
 for (let i = 1; i <= 50; i++) {
-  images.push(⁠'img${i}.jpeg'⁠);
+  images.push(⁠ img${i}.jpeg ⁠);
 }
-
-/* 🔀 OPTIONAL: RANDOM ORDER */
-images.sort(() => Math.random() - 0.5);
 
 let index = 0;
 let interval;
 
+/* 🔥 INTRO */
+function startIntro() {
+
+  setInterval(()=>{
+    createFirework(
+      Math.random()*canvas.width,
+      Math.random()*canvas.height/2
+    );
+  },400);
+
+  setTimeout(()=>{
+    document.getElementById("loader").style.display = "none";
+
+    const main = document.getElementById("mainContent");
+    main.classList.remove("hidden");
+
+    setTimeout(()=>{
+      main.classList.add("show");
+    },100);
+
+  },3000);
+}
+
+window.onload = startIntro;
+
+/* 🎁 BUTTON CLICK */
 function startCelebration() {
-  const slideshow = document.getElementById("slideshow");
+  document.getElementById("slideshow").classList.remove("hidden");
+
   const img = document.getElementById("slideImage");
   const music = document.getElementById("bgMusic");
 
-  // SHOW SLIDESHOW
-  slideshow.classList.remove("hidden");
+  music2.play().catch(()=>{});
 
-  // PLAY MUSIC
-  music2.play();
-
-  // ✅ SHOW FIRST IMAGE IMMEDIATELY
   img.src = images[index];
 
-  // SLIDESHOW LOOP
   interval = setInterval(()=>{
     index = (index + 1) % images.length;
     img.src = images[index];
-  },2000);
+  },1000);
 
-  // FIREWORKS LOOP
   setInterval(()=>{
     createFirework(
       Math.random()*canvas.width,
