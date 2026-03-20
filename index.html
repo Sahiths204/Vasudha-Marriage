@@ -10,65 +10,29 @@ body {
   margin: 0;
   font-family: Arial;
   background: linear-gradient(to right, #ff9a9e, #fad0c4);
-}
-
-/* LOADER */
-#loader {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle, #000000, #1a001a);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  z-index: 9999;
-}
-
-#fireworks {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-}
-
-.loading-text {
-  color: white;
-  font-size: 26px;
-  animation: fade 2s infinite alternate;
-  z-index: 2;
-}
-
-@keyframes fade {
-  from { opacity: 0.3; }
-  to { opacity: 1; }
-}
-
-/* MAIN */
-#mainContent {
-  display: none;
   text-align: center;
-  padding: 20px;
+  color: white;
 }
 
-.show {
-  display: block;
+/* MAIN CARD */
+.container {
+  padding: 20px;
 }
 
 .couple-img {
   width: 90%;
   border-radius: 15px;
+  margin: 15px 0;
 }
 
+/* BUTTON */
 button {
   padding: 12px 20px;
-  border: none;
   border-radius: 25px;
+  border: none;
   background: #ff4081;
   color: white;
   font-size: 16px;
-  cursor: pointer;
 }
 
 /* SLIDESHOW */
@@ -85,16 +49,23 @@ button {
 }
 
 #slideshow img {
-  width: 90%;
+  width: 95%;
 }
 
 .close {
   position: absolute;
   top: 20px;
   right: 20px;
-  color: white;
   font-size: 25px;
   cursor: pointer;
+}
+
+/* FIREWORKS */
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
 }
 </style>
 
@@ -102,14 +73,7 @@ button {
 
 <body>
 
-<!-- LOADER -->
-<div id="loader">
-  <canvas id="fireworks"></canvas>
-  <h1 class="loading-text">💖 Wedding Surprise 💖</h1>
-</div>
-
-<!-- MAIN -->
-<div id="mainContent">
+<div class="container">
   <h1>🎉 Happy Married Life 🎉</h1>
   <h2>Vasudha ❤️ Ramana</h2>
 
@@ -132,6 +96,9 @@ button {
   <span class="close" onclick="closeSlideshow()">✖</span>
   <img id="slideImage">
 </div>
+
+<!-- FIREWORKS -->
+<canvas id="fireworks"></canvas>
 
 <script>
 // FIREWORKS
@@ -173,29 +140,18 @@ function animate() {
 }
 animate();
 
-// INTRO
-setInterval(()=>{
-  createFirework(Math.random()*canvas.width*0.3, Math.random()*canvas.height*0.5);
-  createFirework(canvas.width*0.7 + Math.random()*canvas.width*0.3, Math.random()*canvas.height*0.5);
-},400);
-
-// SHOW MAIN AFTER 3s
-setTimeout(()=>{
-  document.getElementById("loader").style.display = "none";
-  document.getElementById("mainContent").classList.add("show");
-},3000);
-
-// SLIDESHOW (50 IMAGES)
+/* 🎬 IMAGES (1–50) */
 let images = [];
-for (let i=1;i<=50;i++){
+for (let i = 1; i <= 50; i++) {
   images.push(⁠ img${i}.jpeg ⁠);
 }
 
 let index = 0;
 let interval;
 
-function startCelebration(){
-  document.getElementById("slideshow").style.display="flex";
+/* 🎁 BUTTON CLICK */
+function startCelebration() {
+  document.getElementById("slideshow").style.display = "flex";
 
   const img = document.getElementById("slideImage");
   const music = document.getElementById("bgMusic");
@@ -205,13 +161,17 @@ function startCelebration(){
   img.src = images[index];
 
   interval = setInterval(()=>{
-    index=(index+1)%images.length;
-    img.src=images[index];
+    index = (index + 1) % images.length;
+    img.src = images[index];
+
+    // fireworks burst
+    createFirework(Math.random()*canvas.width, Math.random()*canvas.height/2);
+
   },1000);
 }
 
-function closeSlideshow(){
-  document.getElementById("slideshow").style.display="none";
+function closeSlideshow() {
+  document.getElementById("slideshow").style.display = "none";
   clearInterval(interval);
   document.getElementById("bgMusic").pause();
 }
