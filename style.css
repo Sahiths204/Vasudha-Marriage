@@ -1,55 +1,69 @@
 •⁠  ⁠{
   box-sizing: border-box;
 }
-
 body {
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+  font-family: Arial;
+  background: linear-gradient(to right, #ff9a9e, #fad0c4);
+}
+
+/* LOADER */
+#loader {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: black;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  flex-direction: column;
+  z-index: 9999;
+}
+
+.loading-text {
   color: white;
+  margin-top: 20px;
+  font-size: 24px;
+  animation: fade 2s infinite alternate;
 }
 
-/* CARD */
+@keyframes fade {
+  from { opacity: 0.3; }
+  to { opacity: 1; }
+}
+
+/* MAIN */
+.hidden {
+  display: none;
+}
+
+#mainContent {
+  opacity: 0;
+  transition: opacity 2s ease;
+}
+
+#mainContent.show {
+  opacity: 1;
+}
+
 .container {
-  width: 90%;
-  max-width: 350px;
-  padding: 20px;
   text-align: center;
-  background: rgba(255,255,255,0.15);
-  border-radius: 20px;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-  z-index: 2;
+  padding: 20px;
 }
 
-/* TEXT */
-h1 { font-size: 1.6rem; }
-h2 { font-size: 1.3rem; margin: 10px 0; }
-
-/* IMAGE */
 .couple-img {
-  width: 100%;
+  width: 90%;
   border-radius: 15px;
-  margin: 15px 0;
 }
 
-/* MESSAGE */
-.message {
-  font-size: 0.95rem;
-}
-
-/* BUTTON */
 button {
-  padding: 10px 20px;
+  padding: 12px 20px;
+  border: none;
   border-radius: 25px;
   background: #ff4081;
-  border: none;
   color: white;
-  font-size: 14px;
+  font-size: 16px;
+  cursor: pointer;
 }
 
 /* SLIDESHOW */
@@ -63,32 +77,18 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 10;
 }
 
 .slideshow img {
-  width: 95%;
-  max-height: 90%;
-  object-fit: contain;
-}
-
-.hidden {
-  display: none;
+  width: 90%;
+  border-radius: 10px;
 }
 
 .close {
   position: absolute;
   top: 20px;
   right: 20px;
+  font-size: 25px;
   color: white;
-  font-size: 28px;
   cursor: pointer;
-}
-
-/* FIREWORKS */
-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1;
 }
